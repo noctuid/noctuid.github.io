@@ -3,7 +3,6 @@ layout: post
 title: "Using Ranger as a Save Dialog"
 date: 2014-04-30 23:25:27 -0400
 comments: true
-published: false
 categories: ranger firefox pentadactyl terminal tui mouseless linux
 ---
 
