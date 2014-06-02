@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: linux | Nocturnal Artifice]]></title>
-  <link href="http://angelic-sedition.github.io/blog/categories/linux/atom.xml" rel="self"/>
+  <title><![CDATA[Category: downloads | Nocturnal Artifice]]></title>
+  <link href="http://angelic-sedition.github.io/blog/categories/downloads/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
   <updated>2014-06-02T01:58:02-04:00</updated>
   <id>http://angelic-sedition.github.io/</id>
