@@ -4,7 +4,7 @@
   <title><![CDATA[Category: wmctrl | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/wmctrl/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2014-07-19T22:29:34-04:00</updated>
+  <updated>2014-07-20T00:24:27-04:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -44,7 +44,7 @@
 
 <h2>Using Xdotool</h2>
 
-<p>Thanks to <a href="https://bbs.archlinux.org/viewtopic.php?pid=1436909#p1436909">quiv&rsquo;s script in the bspwm thread</a> on the arch forums, I found out about xdotool&rsquo;s <code>windowunmap</code> feature. Using this script, it is possible to &ldquo;minimize&rdquo; or hide a window easily instead of killing the terminal and reattaching to tmux.</p>
+<p>Thanks to <a href="https://bbs.archlinux.org/viewtopic.php?pid=1436909#p1436909">quiv and Supplantr</a> on the arch forums, I found out about xdotool&rsquo;s <code>windowunmap</code> feature. Using this script, it is possible to &ldquo;minimize&rdquo; or hide a window easily instead of killing the terminal and reattaching to tmux.</p>
 
 <p>```</p>
 
