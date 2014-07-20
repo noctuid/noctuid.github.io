@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tmux | Nocturnal Artifice]]></title>
+  <link href="http://angelic-sedition.github.io/blog/categories/tmux/atom.xml" rel="self"/>
+  <link href="http://angelic-sedition.github.io/"/>
+  <updated>2014-07-19T22:29:34-04:00</updated>
+  <id>http://angelic-sedition.github.io/</id>
+  <author>
+    <name><![CDATA[Lit Wakefield]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Make Any Terminal Emulator a Quake Style Dropdown]]></title>
+    <link href="http://angelic-sedition.github.io/blog/2014/07/19/make-any-terminal-emulator-a-quake-style-dropdown/"/>
+    <updated>2014-07-19T13:33:53-04:00</updated>
+    <id>http://angelic-sedition.github.io/blog/2014/07/19/make-any-terminal-emulator-a-quake-style-dropdown</id>
+    <content type="html"><![CDATA[<h2>A Window Manager Independent Solution</h2>
+
+<p>There are plenty of existing dropdown terminal emulators such as <a href="https://github.com/Guake/guake">guake</a>, <a href="http://tilda.sourceforge.net/tildadoc.php">tilda</a>, <a href="http://docs.xfce.org/apps/terminal/dropdown">xfce4-terminal</a>, <a href="http://yakuake.kde.org/">yakuake</a>, <a href="http://software.schmorp.de/pkg/rxvt-unicode.html">urxvt</a> (with -pe quake), and finalterm. Like splits and tabs (which can be done with many programs regardless of whether the terminal has native support), I don&rsquo;t consider the ability to hide and show a term window in the same location to be an important factor in choosing a terminal. There are plenty of good terminals that do not have this feature, and there are plenty of solutions to add it. The problem I encountered is that none of these solutions are universal. Most scripts will only work with a few terminals (<a href="http://phrat.de/yeahtools.html">yeahconsole</a>) or require a certain window manager (e.g. <a href="http://awesome.naquadah.org/wiki/Drop-down_terminal">awesome</a>).</p>
+
+<p>When I switched from urxvt to <a href="https://github.com/thestinger/termite">termite</a>, I found myself in want of a way to use termite as a dropdown. I was using primarily xmonad and awesome at the time, couldn&rsquo;t get the above awesome script working, and wasn&rsquo;t sure if I would stick with awesome anyway. I couldn&rsquo;t find any general scripts that worked, so I ended up making a simple one using a tmux session to save the terminal state instead of hiding a window using some specific window manager feature.</p>
+
+<p>I&rsquo;ll list three methods below that can be modified to potentially work with most any terminal and window manager. The one I am currently using is the one that makes use of <a href="http://www.semicomplete.com/projects/xdotool/">xdotool</a>&rsquo;s windownunmap features as I find it to be by far the best and simplest.</p>
+
+<h2>Using Tmux</h2>
+
+<p>I already almost always use tmux, so using it for this purpose is not a problem for me. For anyone not interested in using a multiplexer, see the solution below.</p>
+
+<p>I won&rsquo;t include the script I used, because I&rsquo;m now using the method below since it eliminates some of the problems listed above. It can be viewed <a href="https://github.com/angelic-sedition/dotfiles/blob/master/not_in_use/bin/my_dropdown.sh">here</a>. However, here&rsquo;s a video of what the result looks like:</p>
+
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3yhX_y1VdWE" allowfullscreen></iframe></div></p>
+
+<p>Since tmux sessions persist even if you kill the terminal they&rsquo;re running in, a terminal window can be killed instead of hidden on a hotkey press. A subsequent hotkey press can open a new instance of the terminal emulator, position it properly, and then reattach to the tmux session. This can be done by binding a key to run a script using a hotkey program like <a href="https://github.com/baskerville/sxhkd">shxkd</a> or xbindkeys. The script will check the class of the current window with xprop and close it if it&rsquo;s your terminal emulator or open your terminal emulator and reattach to the session otherwise.</p>
+
+<p>While this method is relatively simple, there are a few downsides. If you use non-dropdown terminals that are the same program (e.g. xterm) as your dropdown terminal, this method will kill them if they are focused instead of opening your dropdown. As for speed, I&rsquo;ve found this method to sometimes have noticeable delay and be slower than an actual dropdown terminal like guake. This is usually only a problem where things are already slow due to heavy RAM usage, for example.</p>
+
+<p>As for adapting this method to window managers with less scriptability than <a href="https://github.com/baskerville/bspwm">bspwm</a> or <a href="http://herbstluftwm.org/">herbstluftwm</a>, it may be slightly more difficult. All actions for bspwm are shell commands, so closing a window in a shell script is as simple as <code>bspc window -c</code>. For many window managers, using <a href="http://tomas.styblo.name/wmctrl/">wmctrl</a> (e.g. <code>wmctrl -c :ACTIVE:</code>) may work just fine. Otherwise, either killing the terminal or faking the close window shortcut (e.g. alt+f4) using something like xdotool may be necessary.</p>
+
+<p>Even more difficult may be positioning the terminal window properly after opening it. For tiling window managers that don&rsquo;t support floating, there&rsquo;s not much that can be done. Window managers that do support floating usually have the option of always starting a certain program floating. Bspwm also allows for a oneshot rule to float a certain program the next time that it is opened: <code>bspc rule -a termite -o floating=on</code>. As for resizing and window movement, I&rsquo;m using <a href="https://github.com/baskerville/xdo">xdo</a>. If this does not work, using wmctrl&rsquo;s &lsquo;-e&rsquo; flag may be another possibility. As a last resort, it should be possible to resize a window using xdotool&rsquo;s mousemove, mousedown, and mouseup (and possibly keyup and keydown; I&rsquo;ve left an example in the script above, but this is a really ugly and slow way to do things).</p>
+
+<h2>Using Xdotool</h2>
+
+<p>Thanks to <a href="https://bbs.archlinux.org/viewtopic.php?pid=1436909#p1436909">quiv&rsquo;s script in the bspwm thread</a> on the arch forums, I found out about xdotool&rsquo;s <code>windowunmap</code> feature. Using this script, it is possible to &ldquo;minimize&rdquo; or hide a window easily instead of killing the terminal and reattaching to tmux.</p>
+
+<p>```</p>
+
+<h1>!/bin/bash</h1>
+
+<p>if [ -n &ldquo;$1&rdquo; ]; then</p>
+
+<pre><code>xdotool search --onlyvisible --classname $1 windowunmap || xdotool search --classname $1 windowmap || exec $1 &amp;
+</code></pre>
+
+<p>else</p>
+
+<pre><code>echo "Error: no argument supplied. Aborting."
+</code></pre>
+
+<p>fi
+```</p>
+
+<p>Using quiv&rsquo;s script is as simple as running <code>chmod +x</code> on it and binding it to a hotkey in the <code>.sxhkdrc</code>:
+```
+alt + s</p>
+
+<pre><code>/path/to/script.sh (your terminal; e.g. termite)
+</code></pre>
+
+<p>```</p>
+
+<p>This eliminates some of the previously mentioned problems. For one, it&rsquo;s generally faster since it is not necessary to start a new window and reattach to the tmux session. Because the window is not killed, it is no longer necessary to resize it every time. With the tmux method, the resizing can be seen every time the terminal is opened if the user does not have fade in compositing. Also, this method gives a true toggle where whether the hotkey closes or opens the dropdown terminal does not depend on what window is focused (this is how guake and most other dropdowns behave). It&rsquo;s also probably the simplest method since it doesn&rsquo;t use xwininfo, xprop, etc.</p>
+
+<p>This method does not solve the problem for those who uses non-dropdown windows of the same type. I don&rsquo;t find more than one termite window to be necessary with tmux (I&rsquo;d rather use multiple sessions or a different dedicated dropdown), but for those who will have multiple terminal windows open of the type specified in the script, this is likely not a viable solution. A workaround probably wouldn&rsquo;t be too hard by using window id. However, it should be noted that the same is true of normal dropdown terminals; as far as I am aware, you can&rsquo;t have multiple guake instances running, for example.</p>
+
+<p>For tmux users, the above script must be modified to allow reattaching to a tmux session in the case that the window is ever closed. Adding initial resizing and tmux session setup to the script is simple:
+```
+if [ &ldquo;$1&rdquo; == &ldquo;termite&rdquo; ]; then</p>
+
+<pre><code>bspc rule -a termite -o floating=on
+xdotool search --onlyvisible --classname $1 windowunmap || xdotool search --classname $1 windowmap || termite -e "/bin/zsh -c 'sleep 0.01 &amp;&amp; xdo move -x 0 -y 16 &amp;&amp; xdo resize -w +800 &amp;&amp; tmux attach-session -dt dropdown || tmuxinator dropdown'" &amp;
+</code></pre>
+
+<p>else</p>
+
+<pre><code>xdotool search --onlyvisible --classname $1 windowunmap || xdotool search --classname $1 windowmap || exec $1 &amp;
+</code></pre>
+
+<p>fi
+<code>``
+Anyone who doesn't use tmuxinator will want to replace the corresponding part with something along the lines of</code>tmux new-session -s dropdown`.</p>
+
+<h2>Using Wmctrl</h2>
+
+<p>The first thing I found when looking for a solution was <a href="https://github.com/jw013/quake_term/blob/master/quake_term.sh">quake_term.sh</a> which uses wmctrl for hiding. I was unable to get this script working with any window manager at the time. Also, this method is slightly more complicated than using xdotool for hiding and suffers from some of the problems that the xdotool method solves.</p>
+
+<h2>Fullscreen Toggle</h2>
+
+<p>Often dropdown terminals will provide a configurable hotkey for putting the terminal into fullscreen. Bspwm users can simply use <code>bspc desktop -l next</code> for monocle toggle or <code>bspc window -t fullscreen</code> for actual fullscreen. I have these bound in specific programs, but they can also be bound universally with sxhkd. For those not using bspwm, it may be possible to bind a key to something like <code>wmctrl -r :ACTIVE: -b toggle,fullscreen</code> instead for the same functionality.</p>
+
+<h2>Closing Notes</h2>
+
+<p>Don&rsquo;t let someone tell you to use crap like terminator over a terminal emulator you like just for native tabs and splits and don&rsquo;t think it&rsquo;s necessary to abandon your favourite lightweight terminal in favour of another just for native dropdown support!</p>
+]]></content>
+  </entry>
+  
+</feed>

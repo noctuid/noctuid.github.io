@@ -2,7 +2,13 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://angelic-sedition.github.io/blog/2014/04/30/using-ranger-for-downloads/</loc>
-        <lastmod>2014-07-15T02:39:10-04:00</lastmod>
+        <lastmod>2014-07-19T13:35:16-04:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://angelic-sedition.github.io/blog/2014/07/19/make-any-terminal-emulator-a-quake-style-dropdown/
+        </loc>
+        <lastmod>2014-07-19T22:28:37-04:00</lastmod>
     </url>
     <url>
         <loc>http://angelic-sedition.github.io/about.html</loc>
@@ -10,7 +16,7 @@
     </url>
     <url>
         <loc>http://angelic-sedition.github.io/blog/archives/</loc>
-        <lastmod>2014-07-15T02:39:10-04:00</lastmod>
+        <lastmod>2014-07-19T22:28:37-04:00</lastmod>
     </url>
     <url>
         <loc>http://angelic-sedition.github.io/robots.txt</loc>
@@ -18,6 +24,6 @@
     </url>
     <url>
         <loc>http://angelic-sedition.github.io/</loc>
-        <lastmod>2014-07-15T02:39:10-04:00</lastmod>
+        <lastmod>2014-07-19T22:28:37-04:00</lastmod>
     </url>
 </urlset>
