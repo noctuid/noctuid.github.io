@@ -4,7 +4,7 @@ title: "Using Ranger as a Save Dialog"
 date: 2014-04-30 23:25:27 -0400
 comments: true
 published: true
-categories: ranger browsing firefox pentadactyl terminal tui mouseless linux downloads uploads saving
+categories: ranger browsing firefox pentadactyl terminal tui mouseless linux downloads uploads
 ---
 
 ### Quick Round of Applause for Octopress
