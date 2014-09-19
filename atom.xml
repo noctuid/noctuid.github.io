@@ -4,7 +4,7 @@
   <title><![CDATA[Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2014-07-20T00:24:27-04:00</updated>
+  <updated>2014-09-19T18:02:04-04:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -35,9 +35,9 @@
 <div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3yhX_y1VdWE" allowfullscreen></iframe></div>
 
 
-<p>Since tmux sessions persist even if you kill the terminal they&rsquo;re running in, a terminal window can be killed instead of hidden on a hotkey press. A subsequent hotkey press can open a new instance of the terminal emulator, position it properly, and then reattach to the tmux session. This can be done by binding a key to run a script using a hotkey program like <a href="https://github.com/baskerville/sxhkd">shxkd</a> or xbindkeys. The script will check the class of the current window with xprop and close it if it&rsquo;s your terminal emulator or open your terminal emulator and reattach to the session otherwise.</p>
+<p>Since tmux sessions persist even if you kill the terminal they&rsquo;re running in, a terminal window can be killed instead of hidden on a hotkey press. A subsequent hotkey press can open a new instance of the terminal emulator, position it properly, and then reattach to the tmux session. This can be done by binding a key to run a script using a hotkey program like <a href="https://github.com/baskerville/sxhkd">shxkd</a> or xbindkeys. The script will check the class of the current window with xprop (or xtitle, which is often easier) and close it if it&rsquo;s your terminal emulator or open your terminal emulator and reattach to the session if it&rsquo;s not.</p>
 
-<p>While this method is relatively simple, there are a few downsides. If you use non-dropdown terminals that are the same program (e.g. xterm) as your dropdown terminal, this method will kill them if they are focused instead of opening your dropdown. As for speed, I&rsquo;ve found this method to sometimes have noticeable delay and be slower than an actual dropdown terminal like guake. This is usually only a problem where things are already slow due to heavy RAM usage, for example.</p>
+<p>While this method is relatively simple, there are a few downsides. If you use non-dropdown terminals that are the same program (e.g. xterm) as your dropdown terminal, this method will kill them if they are focused instead of opening your dropdown (the method below improves somewhat on this behaviour). As for speed, I&rsquo;ve found this method to sometimes have noticeable delay and be slower than an actual dropdown terminal like guake. This is usually only a problem where things are already slow due to heavy RAM usage, for example.</p>
 
 <p>As for adapting this method to window managers with less scriptability than <a href="https://github.com/baskerville/bspwm">bspwm</a> or <a href="http://herbstluftwm.org/">herbstluftwm</a>, it may be slightly more difficult. All actions for bspwm are shell commands, so closing a window in a shell script is as simple as <code>bspc window -c</code>. For many window managers, using <a href="http://tomas.styblo.name/wmctrl/">wmctrl</a> (e.g. <code>wmctrl -c :ACTIVE:</code>) may work just fine. Otherwise, either killing the terminal or faking the close window shortcut (e.g. alt+f4) using something like xdotool may be necessary.</p>
 
@@ -68,14 +68,20 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>alt + s
-</span><span class='line'>  /path/to/script.sh (your terminal; e.g. termite)</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  /path/to/script.sh &lt;your terminal; e.g. termite&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<p>This eliminates some of the previously mentioned problems. For one, it&rsquo;s generally faster since it is not necessary to start a new window and reattach to the tmux session. Because the window is not killed, it is no longer necessary to resize it every time. With the tmux method, the resizing can be seen every time the terminal is opened if the user does not have fade in compositing. Also, this method gives a true toggle where whether the hotkey closes or opens the dropdown terminal does not depend on what window is focused (this is how guake and most other dropdowns behave). It&rsquo;s also probably the simplest method since it doesn&rsquo;t use xwininfo, xprop, etc.</p>
+<p>This eliminates some of the previously mentioned problems. For one, it&rsquo;s generally faster since it is not necessary to start a new window and reattach to the tmux session. Because the window is not killed, it is no longer necessary to resize it every time. With the tmux method, the resizing can be seen every time the terminal is opened if the user does not have fade in compositing. Also, this method gives a true toggle where whether the hotkey closes or opens the dropdown terminal does not depend on what window is focused. This is how guake and most other dropdowns behave. However, this behaviour can be changed so that, like the old script, it will hide the terminal if it isn&rsquo;t active or activate it if it isn&rsquo;t focused but isn&rsquo;t hidden either.</p>
 
-<p>This method does not solve the problem for those who uses non-dropdown windows of the same type. I don&rsquo;t find more than one termite window to be necessary with tmux (I&rsquo;d rather use multiple sessions or a different dedicated dropdown), but for those who will have multiple terminal windows open of the type specified in the script, this is likely not a viable solution. A workaround probably wouldn&rsquo;t be too hard by using window id. However, it should be noted that the same is true of normal dropdown terminals; as far as I am aware, you can&rsquo;t have multiple guake instances running, for example.</p>
+<p>The best improvement for me is that this script does not cause ranger to crash upon toggling when an image is being previewed. The previous method will crash ranger or break image previewing.</p>
 
-<p>For tmux users, the above script must be modified to allow reattaching to a tmux session in the case that the window is ever closed. Adding initial resizing and tmux session setup to the script is simple:</p>
+<p>This script as is does not solve the problem for those who uses non-dropdown windows of the same type. I don&rsquo;t find more than one termite window to be necessary with tmux (I&rsquo;d rather use multiple sessions or a different dedicated dropdown), but for those who will have multiple terminal windows open of the type specified in the script, this not a viable solution unmodified. A workaround probably wouldn&rsquo;t be too hard to make by using window id or by giving the terminal a specific title when creating it. However, it should be noted that the same is true of normal dropdown terminals; as far as I am aware, you can&rsquo;t have multiple guake instances running for example. One thing to note is that if you&rsquo;re only using a terminal of the same type for a single task, this isn&rsquo;t really a problem. For example, I&rsquo;m using a separate termite instance to choose the location of a file on saving (see my last post). I actually find this behaviour useful in this case. For example, if a download finishes and the termite instance pops up, but you&rsquo;re in the middle of typing something, you can use your dropdown key to hide it, finish what you&rsquo;re doing, then use the hotkey to bring it back up. Once you quit that terminal, the dropdown hotkey can be used for your actual dropdown again.</p>
+
+<p>Another potential problem of this script is that if you hide and show your dropdown while another floating window is up, it may mess up the sizing of your dropdown terminal. I&rsquo;m not sure if this is because of the window manager that I&rsquo;m using, but If I open and close my dropdown with guake open, for example, the size of the terminal used with this script gets shrunk to a very small square (at which point I have to kill the window or toggle it a bunch of times to fix the problem). Using xdo for hiding and showing instead fixes this problem but introduces other problems. Xdo can&rsquo;t only act on visible windows, so xdotool has to be used to activate the window first (and if that&rsquo;s successful, it can then be hidden for a true toggle). Xdo also can&rsquo;t deal with multiple instances like xdotool can. Instead of switching to hiding and showing a new instance, xdo will hide and show both.</p>
+
+<p>Using a combination of both xdotool and xdo can fix this though. To summarize, xdotool&rsquo;s hiding can mess up window size. Xdo&rsquo;s show (and hide, though this doesn&rsquo;t matter as much) will show all hidden windows of the type and will bring up an extra black window when used with termite. Xdotool&rsquo;s hide (windowunmap) sucks and xdo&rsquo;s show sucks. It&rsquo;s almost too perfect. The one problem that remains after combinding the good parts is that hiding a fullscreen window seems to always mess up the sizing regardless of how it is hidden.</p>
+
+<p>For tmux users, the above script can also be modified to allow reattaching to a tmux session in the case that the window is don&rsquo;t closed. Adding initial resizing and tmux session setup to the script is simple. Here are two versions of the modified script. I&rsquo;ve left the first just because it is what I used to use and may work fine when modified for a different window manager.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -91,6 +97,24 @@
 </span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Note that if you&rsquo;re using bspwm, the oneshot floating rule can also be put in front of the opening parts to prevent a newly opened termite instance from floating after hiding the termite dropdown (see the next example). This will make it so it will only set up the floating rule before opening the dropdown.</p>
+
+<p>Example using terminology (this is what I&rsquo;m currently using):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if [ "$1" == "Terminology" ]; then
+</span><span class='line'>  (xdotool search --onlyvisible --classname main windowactivate && xdo hide -n main) ||\
+</span><span class='line'>  (bspc rule -a main -o floating=on && xdotool search --classname main windowmap) ||\
+</span><span class='line'>  (bspc rule -a main -o floating=on && terminology -f=Inconsolata/12 -G=false -2 -e "/bin/zsh -c 'sleep 0.01 && xdo move -x 0 -y 14 && xdo resize -w +880 && tmux attach-session -dt pretty || tmux new-session -s pretty'" &)
+</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s probably not worth using tmux with terminology though since you lose all its cool features. This is a toggle. If you want it to activate the dropdown when it&rsquo;s not focused instead of hiding it, you can remove the windowunmap on the second line.</p>
+
 <p>Anyone who doesn&rsquo;t use tmuxinator will want to replace the corresponding part with something along the lines of <code>tmux new-session -s dropdown</code>.</p>
 
 <h2>Using Wmctrl</h2>
@@ -99,7 +123,7 @@
 
 <h2>Fullscreen Toggle</h2>
 
-<p>Often dropdown terminals will provide a configurable hotkey for putting the terminal into fullscreen. Bspwm users can simply use <code>bspc desktop -l next</code> for monocle toggle or <code>bspc window -t fullscreen</code> for actual fullscreen. I have these bound in specific programs, but they can also be bound universally with sxhkd. For those not using bspwm, it may be possible to bind a key to something like <code>wmctrl -r :ACTIVE: -b toggle,fullscreen</code> instead for the same functionality.</p>
+<p>Often dropdown terminals will provide a configurable hotkey for putting the terminal into fullscreen. Bspwm users can simply use <code>bspc desktop -l next</code> for monocle toggle or <code>bspc window -t fullscreen</code> for actual fullscreen. I have these bound in specific programs, but they can also be bound universally with sxhkd. For those not using bspwm, it may be possible to bind a key to something like <code>wmctrl -r :ACTIVE: -b toggle,fullscreen</code> instead for the same functionality. Note that, like I previously mentioned, hiding a window that is fullscreen will mess up the sizing using the xdotool method.</p>
 
 <h2>Closing Notes</h2>
 
