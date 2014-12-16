@@ -2,28 +2,32 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://angelic-sedition.github.io/blog/2014/04/30/using-ranger-for-downloads/</loc>
-        <lastmod>2014-07-19T13:35:16-04:00</lastmod>
+        <lastmod>2014-09-21T23:46:55-04:00</lastmod>
     </url>
     <url>
         <loc>
             http://angelic-sedition.github.io/blog/2014/07/19/make-any-terminal-emulator-a-quake-style-dropdown/
         </loc>
-        <lastmod>2014-09-19T17:50:31-04:00</lastmod>
+        <lastmod>2014-12-16T01:49:56-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://angelic-sedition.github.io/blog/2014/09/21/why-i-one-space/</loc>
+        <lastmod>2014-12-16T02:21:36-05:00</lastmod>
     </url>
     <url>
         <loc>http://angelic-sedition.github.io/about.html</loc>
         <lastmod>2014-07-09T18:17:44-04:00</lastmod>
     </url>
     <url>
-        <loc>http://angelic-sedition.github.io/blog/archives/</loc>
-        <lastmod>2014-09-19T17:50:31-04:00</lastmod>
-    </url>
-    <url>
         <loc>http://angelic-sedition.github.io/robots.txt</loc>
         <lastmod>2014-07-09T18:17:44-04:00</lastmod>
     </url>
     <url>
+        <loc>http://angelic-sedition.github.io/blog/archives/</loc>
+        <lastmod>2014-12-16T02:21:36-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://angelic-sedition.github.io/</loc>
-        <lastmod>2014-09-19T17:50:31-04:00</lastmod>
+        <lastmod>2014-12-16T02:21:36-05:00</lastmod>
     </url>
 </urlset>

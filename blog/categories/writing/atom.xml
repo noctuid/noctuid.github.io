@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: writing | Nocturnal Artifice]]></title>
+  <link href="http://angelic-sedition.github.io/blog/categories/writing/atom.xml" rel="self"/>
+  <link href="http://angelic-sedition.github.io/"/>
+  <updated>2014-12-16T02:25:25-05:00</updated>
+  <id>http://angelic-sedition.github.io/</id>
+  <author>
+    <name><![CDATA[Lit Wakefield]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why I One-Space]]></title>
+    <link href="http://angelic-sedition.github.io/blog/2014/09/21/why-i-one-space/"/>
+    <updated>2014-09-21T23:46:12-04:00</updated>
+    <id>http://angelic-sedition.github.io/blog/2014/09/21/why-i-one-space</id>
+    <content type="html"><![CDATA[<p><a href="http://stevelosh.com/blog/2012/10/why-i-two-space/">Steve Losh&rsquo;s article</a> on using two spaces after a sentence continues to popup, going mostly unchallenged it would seem. I personally fail to see any reason to use two spaces that isn&rsquo;t completely subjective and find his arguments otherwise to be self-defeating.</p>
+
+<h2>His Arguments for Two Spaces</h2>
+
+<ol>
+<li>It looks better when using a monospaced font.</li>
+<li>It gives the user more &ldquo;power&rdquo;</li>
+</ol>
+
+
+<h2>Two-Spacing is Pretty</h2>
+
+<p>This is entirely subjective. I use monospaced fonts all the time and still think two spaces in between a sentence looks hideous.</p>
+
+<h2>Two-Spacing Gives More Power?</h2>
+
+<p>Okay so what about the non-trivial argument? Well, first of all, it seems to be the same as the argument he says is not convincing (less effort). His example for &ldquo;power&rdquo; only applies to vim users and only to some of them.</p>
+
+<p>This is what happens when I type <code>das</code> in vim using his example.</p>
+
+<p>Before with cursor above <code>t</code>:</p>
+
+<p><code>Bob started speaking. Hello, Mr. Smi[t]h! How are you today?</code></p>
+
+<p>After <code>das</code>:</p>
+
+<p><code>Bob started speaking. How are you today?</code></p>
+
+<p>It ends up looking exactly how I want. This is because I&rsquo;m using reedes' excellent <a href="https://github.com/reedes/vim-textobj-sentence">textobj-sentence</a> plugin that makes vim&rsquo;s <code>as</code> and <code>is</code> smarter. It even allows for adding custom abbreviations to ignore. As Losh says, we can have our cake and eat it too!</p>
+
+<p>Granted, this plugin didn&rsquo;t exist at the time of the article&rsquo;s writing (though the idea isn&rsquo;t exactly hard to come up with). Even if this plugin did not currently exist, his argument is bunk. What is the benefit of being able to do things like <code>das</code>? If what is meant by power is not efficiency and saving keystrokes, effort, and time, then I&rsquo;ve no clue what the point is. Count how many times I&rsquo;ve used abbreviations in this post. You don&rsquo;t even have to count the number sentences to realize the number of extra keystrokes I would have had to type to put two spaces in between every sentence is exponentially greater than the single extra keystroke it would have taken me to deal with that abbreviation if I had needed to (the dot operator). So even if space is only half a percent of keystrokes typed, the number of keystrokes needed to deal with abbreviations is even more insignificant. So much for power.</p>
+
+<p>As for parsing, this is merely a hypothetical. Has he ever needed to do that? I actually often use a script for counting sentences, and it&rsquo;s really not that difficult to deal with single spaced sentences like textobj-sentences does. A script that chose not to deal with it would suffer from the problem of not working with anything written by people who don&rsquo;t two-space.</p>
+
+<p>The only thing two-spacing seems be to me is a bad habit.</p>
+]]></content>
+  </entry>
+  
+</feed>
