@@ -4,7 +4,7 @@
   <title><![CDATA[Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-03T17:55:02-05:00</updated>
+  <updated>2015-02-03T18:33:53-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -47,6 +47,7 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
+<span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>(defhydra helm-like-unite ()
 </span><span class='line'>  "vim movement"
 </span><span class='line'>  ("?" helm-help "help")
@@ -56,7 +57,8 @@
 </span><span class='line'>  ;; not sure if there's a better way to do this
 </span><span class='line'>  ("/" (lambda ()
 </span><span class='line'>          (interactive)
-</span><span class='line'>          (execute-kbd-macro [?\C-s])))
+</span><span class='line'>          (execute-kbd-macro [?\C-s]))
+</span><span class='line'>       "search")
 </span><span class='line'>  ("g" helm-beginning-of-buffer "top")
 </span><span class='line'>  ("G" helm-end-of-buffer "bottom")
 </span><span class='line'>  ("j" helm-next-line "down")
@@ -68,7 +70,7 @@
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>;; if you use helm everywhere
+</pre></td><td class='code'><pre><code class=''><span class='line'>;; if you use helm everywhere; (helm-mode 1)
 </span><span class='line'>(define-key minibuffer-local-map (kbd "&lt;escape&gt;") 'helm-like-unite/body)</span></code></pre></td></tr></table></div></figure>
 
 

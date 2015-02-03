@@ -4,7 +4,7 @@
   <title><![CDATA[Category: helm | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/helm/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-03T17:55:02-05:00</updated>
+  <updated>2015-02-03T18:33:53-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -43,7 +43,8 @@
   (&ldquo;/&rdquo; (lambda ()</p>
 
 <pre><code>      (interactive)
-      (execute-kbd-macro [?\C-s])))
+      (execute-kbd-macro [?\C-s]))
+   "search")
 </code></pre>
 
 <p>  (&ldquo;g&rdquo; helm-beginning-of-buffer &ldquo;top&rdquo;)
@@ -56,7 +57,7 @@
 <p>Then bind it to <code>escape</code>:</p>
 
 <p><code>
-;; if you use helm everywhere
+;; if you use helm everywhere; (helm-mode 1)
 (define-key minibuffer-local-map (kbd "&lt;escape&gt;") 'helm-like-unite/body)
 </code></p>
 
