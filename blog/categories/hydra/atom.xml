@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hydra | Nocturnal Artifice]]></title>
+  <link href="http://angelic-sedition.github.io/blog/categories/hydra/atom.xml" rel="self"/>
+  <link href="http://angelic-sedition.github.io/"/>
+  <updated>2015-02-03T17:55:02-05:00</updated>
+  <id>http://angelic-sedition.github.io/</id>
+  <author>
+    <name><![CDATA[Lit Wakefield]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A More Evil Helm]]></title>
+    <link href="http://angelic-sedition.github.io/blog/2015/02/03/a-more-evil-helm/"/>
+    <updated>2015-02-03T12:44:40-05:00</updated>
+    <id>http://angelic-sedition.github.io/blog/2015/02/03/a-more-evil-helm</id>
+    <content type="html"><![CDATA[<h2>Modes, Submodes, States, and Now Hydras</h2>
+
+<p>The <a href="https://github.com/abo-abo/hydra">hydra</a> plugin for emacs basically provides an extremely convenient way to create custom, persistent states where single keys will have a different effect than they normally would. The point is the same as that behind modal editing. If you&rsquo;re going to be performing multiple related actions in a sequence, it is more efficient to enter a state where you can execute those actions using only single keys.</p>
+
+<p>I use the word &ldquo;state&rdquo; because the word &ldquo;mode&rdquo; has a very different different meaning in emacs (kind of like &ldquo;yank&rdquo; does). The equivalent of a vim mode in emacs is basically an evil state. The equivalent of a <a href="http://www.vim.org/scripts/script.php?script_id=2467">vim-submode</a> would be a hydra. There have already been evil plugins such as <a href="https://github.com/syl20bnr/evil-lisp-state">evil-lisp-state</a> and code in spacemacs that create mini-states for more specific tasks, but hydra makes the creation of these much simpler.</p>
+
+<p>A commonly given example of when one might use a hydra is when repeating an action over and over, such as scrolling or zooming. However, it&rsquo;s generally simpler to just use the dot operator for repeating single actions. A better one would be the <a href="http://oremacs.com/2015/02/03/one-hydra-two-hydra/">example</a> given by abo-abo (hydra&rsquo;s author) and bcarell for switching between splits.</p>
+
+<p>Hydra has other convenience features, such as allowing for help text for each key or &ldquo;head&rdquo; in the hydra to be printed in the echo area. It does everything one would initially hope for and allows for global hydras as well as hydras in specific major modes. It even makes a &ldquo;color&rdquo; distinction where a head with the color blue will exit the state while those that are red (default) will not.</p>
+
+<h2>A Hydra to Make Helm More Like Unite</h2>
+
+<p>Helm is pretty much the emacs equivalent of Unite except even more integrated. One thing I sometimes miss when using Helm is the ability to switch from <code>insert</code> to <code>normal</code> to do things like mark or move between candidates. I orginally created substates using the same method <code>evil-lisp-state</code> uses. It works, but it&rsquo;s ugly, long (>60 lines), and you have to define a new evil state each time. With hydra there&rsquo;s no evil involved, and it&rsquo;s as simple as this:</p>
+
+<p>```
+(defhydra helm-like-unite ()
+  &ldquo;vim movement&rdquo;
+  (&ldquo;?&rdquo; helm-help &ldquo;help&rdquo;)
+  (&ldquo;<escape>&rdquo; keyboard-escape-quit &ldquo;exit&rdquo;)
+  (&ldquo;<SPC>&rdquo; helm-toggle-visible-mark &ldquo;mark&rdquo;)
+  (&ldquo;a&rdquo; helm-toggle-all-marks &ldquo;(un)mark all&rdquo;)
+  ;; not sure if there&rsquo;s a better way to do this
+  (&ldquo;/&rdquo; (lambda ()</p>
+
+<pre><code>      (interactive)
+      (execute-kbd-macro [?\C-s])))
+</code></pre>
+
+<p>  (&ldquo;g&rdquo; helm-beginning-of-buffer &ldquo;top&rdquo;)
+  (&ldquo;G&rdquo; helm-end-of-buffer &ldquo;bottom&rdquo;)
+  (&ldquo;j&rdquo; helm-next-line &ldquo;down&rdquo;)
+  (&ldquo;k&rdquo; helm-previous-line &ldquo;up&rdquo;)
+  (&ldquo;i&rdquo; nil &ldquo;cancel&rdquo;))
+```</p>
+
+<p>Then bind it to <code>escape</code>:</p>
+
+<p><code>
+;; if you use helm everywhere
+(define-key minibuffer-local-map (kbd "&lt;escape&gt;") 'helm-like-unite/body)
+</code></p>
+
+<p>Now you can enter the <code>helm-like-unite</code> hydra with <code>escape</code> in helm and then use <code>j</code> and <code>k</code> to navigate up and down and <code>space</code> to mark candidates. Hydra even makes numbers work as digit arguments, so you can do <code>9k</code> as you would in vim. You can use <code>escape</code> to quit helm or <code>i</code> to return to normal functionality. Keys not mapped in a hydra will exit the hydra, so <code>return</code> and <code>tab</code> will have their normal behaviour. <code>?</code> will bring up helm&rsquo;s help. <code>/</code> will do whatever <code>C-s</code> would do for those selected buffers (e.g. <code>helm-buffers-run-multi-occur</code> or <code>helm-ff-run-grep</code>). It&rsquo;s easy to add more actions, for example binding <code>p</code> to <code>helm-copy-to-buffer</code> or <code>d</code> and <code>u</code> to <code>helm-next-page</code> and <code>helm-previous-page</code>.</p>
+
+<p>A downside could be that it now takes two escapes to get out of helm. This will probably appeal mostly only to evil users. If you don&rsquo;t move up and down and mark specific candidates a lot in helm, this probably isn&rsquo;t worth it. I still think it&rsquo;s a cool example of hydra&rsquo;s simplicity.</p>
+]]></content>
+  </entry>
+  
+</feed>
