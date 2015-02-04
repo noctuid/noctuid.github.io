@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hydra | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/hydra/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-03T18:45:29-05:00</updated>
+  <updated>2015-02-03T19:28:05-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -30,7 +30,7 @@
 
 <h2>A Hydra to Make Helm More Like Unite</h2>
 
-<p>Helm is pretty much the emacs equivalent of Unite except even more integrated. One thing I sometimes miss when using Helm is the ability to switch from <code>insert</code> to <code>normal</code> to do things like mark or move between candidates. I orginally created substates using the same method <code>evil-lisp-state</code> uses. It works, but it&rsquo;s ugly, long (>60 lines), and you have to define a new evil state each time. With hydra there&rsquo;s no evil involved, and it&rsquo;s as simple as this:</p>
+<p><a href="https://github.com/emacs-helm/helm">Helm</a> is pretty much the emacs equivalent of <a href="https://github.com/Shougo/unite.vim">unite</a> except even more integrated. One thing I sometimes miss when using Helm is the ability to switch from <code>insert</code> to <code>normal</code> to do things like mark or move between candidates. I orginally created substates using the same method <code>evil-lisp-state</code> uses. It works, but it&rsquo;s ugly, long (>60 lines), and you have to define a new evil state each time. With hydra there&rsquo;s no evil involved, and it&rsquo;s as simple as this:</p>
 
 <p>```
 (defhydra helm-like-unite ()
