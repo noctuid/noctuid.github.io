@@ -4,7 +4,7 @@
   <title><![CDATA[Category: helm | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/helm/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-04T00:00:21-05:00</updated>
+  <updated>2015-02-04T16:03:07-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -58,8 +58,7 @@
 <p>Then bind it to <code>escape</code>:</p>
 
 <p><code>
-;; if you use helm everywhere; (helm-mode 1)
-(define-key minibuffer-local-map (kbd "&lt;escape&gt;") 'helm-like-unite/body)
+(define-key helm-map (kbd "&lt;escape&gt;") 'helm-like-unite/body)
 </code></p>
 
 <p>Now you can enter the <code>helm-like-unite</code> hydra with <code>escape</code> in helm and then use <code>j</code> and <code>k</code> to navigate up and down and <code>space</code> to mark candidates. Hydra even makes numbers work as digit arguments, so you can do <code>9k</code> as you would in vim. You can use <code>escape</code> to quit helm or <code>i</code> to return to normal functionality. Keys not mapped in a hydra will exit the hydra, so <code>return</code> and <code>tab</code> will have their normal behaviour. <code>?</code> will bring up helm&rsquo;s help. <code>/</code> will do whatever <code>C-s</code> would do for those selected buffers (e.g. <code>helm-buffers-run-multi-occur</code> or <code>helm-ff-run-grep</code>). <code>v</code> will describe the function, or preview the buffer/file, or go to a line (in helm occur), etc. It&rsquo;s easy to add more actions, for example binding <code>p</code> to <code>helm-copy-to-buffer</code> or <code>d</code> and <code>u</code> to <code>helm-next-page</code> and <code>helm-previous-page</code>.</p>
