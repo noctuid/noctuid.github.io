@@ -4,7 +4,7 @@
   <title><![CDATA[Category: emacs | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/emacs/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-05T11:52:30-05:00</updated>
+  <updated>2015-02-05T11:54:37-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -73,7 +73,7 @@
 ("h" helm-previous-source)
 ("l" helm-next-source)
 ;; suggested by syl20bnr
-;; if you want to use a key besides TAB to select the action and then exit the hydra
+;; if you want to use a key besides TAB to go to action select and then exit the hydra
 ("r" helm-select-action :color blue)
 </code></p>
 
