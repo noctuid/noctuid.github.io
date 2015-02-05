@@ -7,7 +7,7 @@ published: true
 categories: writing
 ---
 
-[Steve Losh's article](http://stevelosh.com/blog/2012/10/why-i-two-space/) on using two spaces after a sentence continues to popup, going mostly unchallenged it would seem. I personally fail to see any reason to use two spaces that isn't completely subjective and find his arguments otherwise to be self-defeating.
+[Steve Losh's article](http://stevelosh.com/blog/2012/10/why-i-two-space/) on using two spaces after a sentence continues to pop up, going mostly unchallenged it would seem. I personally fail to see any reason to use two spaces that isn't completely subjective and find his arguments otherwise to be self-defeating.
 
 ## His Arguments for Two Spaces
 1. It looks better when using a monospaced font.
@@ -17,7 +17,7 @@ categories: writing
 This is entirely subjective. I use monospaced fonts all the time and still think two spaces in between a sentence looks hideous.
 
 ## Two-Spacing Gives More Power?
-Okay so what about the non-trivial argument? Well, first of all, it seems to be the same as the argument he says is not convincing (less effort). His example for "power" only applies to vim users and only to some of them.
+Okay so what about the non-trivial argument? Well, it seems to be the same as the argument he says is not convincing (less effort). His specific example for "power" only applies to vim users and only to some of them.
 
 This is what happens when I type `das` in vim using his example.
 
