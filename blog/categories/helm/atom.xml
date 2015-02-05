@@ -4,7 +4,7 @@
   <title><![CDATA[Category: helm | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/helm/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-05T11:54:37-05:00</updated>
+  <updated>2015-02-05T17:04:43-05:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -24,13 +24,13 @@
 
 <p>I use the word &ldquo;state&rdquo; because the word &ldquo;mode&rdquo; has a very different different meaning in emacs (kind of like &ldquo;yank&rdquo; does). The equivalent of a vim mode in emacs is basically an evil state (using the <a href="https://gitorious.org/evil/pages/Home">evil plugin</a>). The equivalent of a <a href="http://www.vim.org/scripts/script.php?script_id=2467">vim-submode</a> would be a hydra. There have already been evil plugins such as <a href="https://github.com/syl20bnr/evil-lisp-state">evil-lisp-state</a> and code in spacemacs that create mini-states for more specific tasks, but hydra makes the creation of these much simpler.</p>
 
-<p>A commonly given example of when one might use a hydra is when repeating an action over and over, such as scrolling or zooming. However, it&rsquo;s generally simpler to just use the dot operator for repeating single actions. A better one would be the <a href="http://oremacs.com/2015/02/03/one-hydra-two-hydra/">example</a> given by abo-abo (hydra&rsquo;s author) and bcarell for switching between splits.</p>
+<p>A commonly given example of when one might use a hydra is when repeating an action over and over, such as scrolling or zooming. However, it&rsquo;s generally simpler to just use the dot operator for repeating single actions. A better one would be the <a href="http://oremacs.com/2015/02/03/one-hydra-two-hydra/">example</a> given by Oleh Krehel (hydra&rsquo;s author) and bcarell for switching between splits.</p>
 
 <p>Hydra has other convenience features, such as allowing for help text for each key or &ldquo;head&rdquo; in the hydra to be printed in the echo area. It does everything one would initially hope for and allows for global hydras as well as hydras in specific major modes. It even makes a &ldquo;color&rdquo; distinction where a head with the color blue will exit the state while those that are red (default) will not.</p>
 
 <h2>A Hydra to Make Helm More Like Unite</h2>
 
-<p><a href="https://github.com/emacs-helm/helm">Helm</a> is pretty much the emacs equivalent of <a href="https://github.com/Shougo/unite.vim">unite</a> except even more integrated. One thing I sometimes miss when using Helm is the ability to switch from <code>insert</code> to <code>normal</code> to do things like mark or move between candidates. I orginally created substates using the same method <code>evil-lisp-state</code> uses. It works, but it&rsquo;s ugly, long (>60 lines), and you have to define a new evil state each time. With hydra there&rsquo;s no evil involved, and it&rsquo;s as simple as this:</p>
+<p><a href="https://github.com/emacs-helm/helm">Helm</a> is pretty much the emacs equivalent of <a href="https://github.com/Shougo/unite.vim">unite</a> except even more integrated. One thing I sometimes miss when using Helm is the ability to switch from <code>insert</code> to <code>normal</code> to do things like mark or move between candidates. I originally created mini-states using the same method <code>evil-lisp-state</code> uses. It works, but it&rsquo;s ugly, long (>60 lines), and you have to define a new evil state each time. Spacemacs has a more simple way to do things if you want to extract it, but I prefer hydra. With hydra there&rsquo;s no evil involved, and it&rsquo;s as easy as this:</p>
 
 <p>```
 (defhydra helm-like-unite ()
@@ -66,18 +66,27 @@
 
 <p>Now you can enter the <code>helm-like-unite</code> hydra with <code>escape</code> in helm and then use <code>j</code> and <code>k</code> to navigate up and down and <code>space</code> to mark candidates. Hydra even makes numbers work as digit arguments, so you can do <code>9k</code> as you would in vim. You can use <code>escape</code> to quit helm or <code>i</code> to return to normal functionality. Keys not mapped in a hydra will exit the hydra, so <code>return</code> and <code>tab</code> will have their normal behaviour. <code>?</code> will bring up helm&rsquo;s help. <code>/</code> will do whatever <code>C-s</code> would do for those selected buffers (e.g. <code>helm-buffers-run-multi-occur</code> or <code>helm-ff-run-grep</code>). <code>v</code> will describe the function, or preview the buffer/file, or go to a line (in helm occur), etc.</p>
 
-<p>It&rsquo;s easy to add more actions, for example binding <code>p</code> to <code>helm-copy-to-buffer</code> or <code>d</code> and <code>u</code> to <code>helm-next-page</code> and <code>helm-previous-page</code>. Here are some other suggestions:</p>
+<p>It&rsquo;s trivial to add more actions, for example binding <code>p</code> to <code>helm-copy-to-buffer</code> or <code>d</code> and <code>u</code> to <code>helm-next-page</code> and <code>helm-previous-page</code>. Here are some other suggestions:</p>
 
 <p><code>
 ;; suggested by ReneFroger
 ("h" helm-previous-source)
 ("l" helm-next-source)
-;; suggested by syl20bnr
+;; suggested by Sylvain Benner (syl20bnr)
 ;; if you want to use a key besides TAB to go to action select and then exit the hydra
 ("r" helm-select-action :color blue)
 </code></p>
 
+<h2>Potential Problems</h2>
+
 <p>A downside could be that it now takes two escapes to get out of helm unless you use a different key to enter the hydra (one escape to enter the hydra and one to then quit helm). Anyway, this will probably appeal mostly only to evil users. If you don&rsquo;t move up and down and mark specific candidates a lot in helm, this probably isn&rsquo;t worth it. I still think it&rsquo;s a cool example of hydra&rsquo;s simplicity.</p>
+
+<h3>Update</h3>
+
+<p>One annoyance is that helm will override the hydra help echo after a few seconds. However, hydra now has <a href="http://oremacs.com/2015/02/04/pre-hydra-post/">:pre and :post</a> which allow
+you to, for example, change the color of the cursor when you&rsquo;re in the hydra to make it clear even after the echo disappears.</p>
+
+<p>Hydra has also added the <a href="http://oremacs.com/2015/02/05/amaranth-hydra/">new color amaranth</a> that will change the default behaviour so that only blue heads (keys that are specified by the user to exit) will leave the hydra. This means that pressing unbound keys in the hydra won&rsquo;t exit the hydra. This may be the preferred behaviour for some.</p>
 ]]></content>
   </entry>
   
