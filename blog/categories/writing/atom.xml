@@ -4,7 +4,7 @@
   <title><![CDATA[Category: writing | Nocturnal Artifice]]></title>
   <link href="http://angelic-sedition.github.io/blog/categories/writing/atom.xml" rel="self"/>
   <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-02-05T17:06:13-05:00</updated>
+  <updated>2015-09-08T18:27:15-04:00</updated>
   <id>http://angelic-sedition.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -50,9 +50,11 @@
 
 <p>Granted, this plugin didn&rsquo;t exist at the time of the article&rsquo;s writing (though the idea isn&rsquo;t exactly hard to come up with). Even if this plugin did not currently exist, his argument is bunk. What is the benefit of being able to do things like <code>das</code>? If what is meant by power is not efficiency and saving keystrokes, effort, and time, then I&rsquo;ve no clue what the point is. Count how many times I&rsquo;ve used abbreviations in this post. You don&rsquo;t even have to count the number sentences to realize the number of extra keystrokes I would have had to type to put two spaces in between every sentence is exponentially greater than the single extra keystroke it would have taken me to deal with that abbreviation if I had needed to (the dot operator). So even if space is only half a percent of keystrokes typed, the number of keystrokes needed to deal with abbreviations is even more insignificant. So much for power.</p>
 
-<p>As for parsing, this is merely a hypothetical. Has he ever needed to do that? I actually often use a script for counting sentences, and it&rsquo;s really not that difficult to deal with single spaced sentences like textobj-sentences does. A script that chose not to deal with it would suffer from the problem of not working with anything written by people who don&rsquo;t two-space.</p>
+<p>As for parsing, this is merely a hypothetical. Has he ever needed to do that? I actually often use a script for counting sentences, and it&rsquo;s really not that difficult to deal with single spaced sentences like textobj-sentence does. A script that chose not to deal with it would suffer from the problem of not working with anything written by people who don&rsquo;t two-space. Unless this script needed to be absolutely perfect at counting, there would be no need to two-space sentences. This method of counting one-spaced sentences only fails in the rare case that a sentence actually does end with an abbreviation.</p>
 
-<p>The only thing two-spacing seems be to me is a bad habit.</p>
+<h2>Update (2015-09-08)</h2>
+
+<p>Emacs users can find an equivalent of <code>vim-textobj-sentence</code> <a href="https://github.com/noctuid/emacs-sentence-navigation">here</a>.</p>
 ]]></content>
   </entry>
   
