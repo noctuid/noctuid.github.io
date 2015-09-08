@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: browsing | Nocturnal Artifice]]></title>
-  <link href="http://angelic-sedition.github.io/blog/categories/browsing/atom.xml" rel="self"/>
-  <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-09-08T18:27:15-04:00</updated>
-  <id>http://angelic-sedition.github.io/</id>
+  <link href="http://noctuid.github.io/blog/categories/browsing/atom.xml" rel="self"/>
+  <link href="http://noctuid.github.io/"/>
+  <updated>2015-09-08T18:30:11-04:00</updated>
+  <id>http://noctuid.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Ranger as a Save Dialog]]></title>
-    <link href="http://angelic-sedition.github.io/blog/2014/04/30/using-ranger-for-downloads/"/>
+    <link href="http://noctuid.github.io/blog/2014/04/30/using-ranger-for-downloads/"/>
     <updated>2014-04-30T23:25:27-04:00</updated>
-    <id>http://angelic-sedition.github.io/blog/2014/04/30/using-ranger-for-downloads</id>
+    <id>http://noctuid.github.io/blog/2014/04/30/using-ranger-for-downloads</id>
     <content type="html"><![CDATA[<h3>Quick Round of Applause for Octopress</h3>
 
 <p>Today I found the perfect excuse to start a blog when I stumbled across <a href="https://pages.github.com/">github pages</a> and <a href="http://octopress.org/">octopress</a>. It&rsquo;s something I&rsquo;ve been wanting to do for a while, but I never found blogger or wordpress to be that attractive. Finding out that I could easily host a blog on github and write all my posts in markdown was enough to git me to do it immediately. For a first post, I thought I&rsquo;d just start with presenting something basic I did recently to start using ranger for saving downloads.</p>

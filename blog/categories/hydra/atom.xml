@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: hydra | Nocturnal Artifice]]></title>
-  <link href="http://angelic-sedition.github.io/blog/categories/hydra/atom.xml" rel="self"/>
-  <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-09-08T18:27:15-04:00</updated>
-  <id>http://angelic-sedition.github.io/</id>
+  <link href="http://noctuid.github.io/blog/categories/hydra/atom.xml" rel="self"/>
+  <link href="http://noctuid.github.io/"/>
+  <updated>2015-09-08T18:30:11-04:00</updated>
+  <id>http://noctuid.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A More Evil Helm]]></title>
-    <link href="http://angelic-sedition.github.io/blog/2015/02/03/a-more-evil-helm/"/>
+    <link href="http://noctuid.github.io/blog/2015/02/03/a-more-evil-helm/"/>
     <updated>2015-02-03T12:44:40-05:00</updated>
-    <id>http://angelic-sedition.github.io/blog/2015/02/03/a-more-evil-helm</id>
+    <id>http://noctuid.github.io/blog/2015/02/03/a-more-evil-helm</id>
     <content type="html"><![CDATA[<h2>Modes, Submodes, States, and Now Hydras</h2>
 
 <p>The <a href="https://github.com/abo-abo/hydra">hydra</a> package for emacs basically provides an extremely convenient way to create custom, persistent states where single keys will have a different effect than they normally would. The point is the same as that behind modal editing. If you&rsquo;re going to be performing multiple related actions in a sequence, it is more efficient to enter a state where you can execute those actions using only single keys.</p>

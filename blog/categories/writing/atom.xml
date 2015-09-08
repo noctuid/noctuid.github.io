@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: writing | Nocturnal Artifice]]></title>
-  <link href="http://angelic-sedition.github.io/blog/categories/writing/atom.xml" rel="self"/>
-  <link href="http://angelic-sedition.github.io/"/>
-  <updated>2015-09-08T18:27:15-04:00</updated>
-  <id>http://angelic-sedition.github.io/</id>
+  <link href="http://noctuid.github.io/blog/categories/writing/atom.xml" rel="self"/>
+  <link href="http://noctuid.github.io/"/>
+  <updated>2015-09-08T18:30:11-04:00</updated>
+  <id>http://noctuid.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Why I One-Space]]></title>
-    <link href="http://angelic-sedition.github.io/blog/2014/09/21/why-i-one-space/"/>
+    <link href="http://noctuid.github.io/blog/2014/09/21/why-i-one-space/"/>
     <updated>2014-09-21T23:46:12-04:00</updated>
-    <id>http://angelic-sedition.github.io/blog/2014/09/21/why-i-one-space</id>
+    <id>http://noctuid.github.io/blog/2014/09/21/why-i-one-space</id>
     <content type="html"><![CDATA[<p><a href="http://stevelosh.com/blog/2012/10/why-i-two-space/">Steve Losh&rsquo;s article</a> on using two spaces after a sentence continues to pop up, going mostly unchallenged it would seem. I personally fail to see any reason to use two spaces that isn&rsquo;t completely subjective and find his arguments otherwise to be self-defeating.</p>
 
 <h2>His Arguments for Two Spaces</h2>
