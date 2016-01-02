@@ -30,6 +30,7 @@ Here's an example script to open ranger with the file cut:
 ```
 
 *It will look something like this (updated 2016-01-02)*:
+
 {% img /images/ranger_file_saver.png %}
 
 My full script can be found [here](https://github.com/noctuid/dotfiles/blob/master/scripts/bin/dl_move) and fixes a lot of problems that can occur. For example, it uses detox to clean up the filename and ignores files saved under `/tmp` (happens when using "open with"). It also supports consecutively saving files to a temporary directory and then moving them all at once later. This is useful for preventing a lot of popups when saving related files (e.g. using a count or `:tabdo`). It has an example for automatically moving certain filetypes; I do this with torrent files. Finally, it gives an example way to use emacsclient and dired instead of ranger (which can open a lot quicker in some situations).
