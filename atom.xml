@@ -4,7 +4,7 @@
   <title><![CDATA[Nocturnal Artifice]]></title>
   <link href="http://noctuid.github.io/atom.xml" rel="self"/>
   <link href="http://noctuid.github.io/"/>
-  <updated>2015-09-08T18:30:11-04:00</updated>
+  <updated>2016-01-02T17:25:38-05:00</updated>
   <id>http://noctuid.github.io/</id>
   <author>
     <name><![CDATA[Lit Wakefield]]></name>
@@ -165,41 +165,36 @@ you to, for example, change the color of the cursor when you&rsquo;re in the hyd
 
 <p>Today I found the perfect excuse to start a blog when I stumbled across <a href="https://pages.github.com/">github pages</a> and <a href="http://octopress.org/">octopress</a>. It&rsquo;s something I&rsquo;ve been wanting to do for a while, but I never found blogger or wordpress to be that attractive. Finding out that I could easily host a blog on github and write all my posts in markdown was enough to git me to do it immediately. For a first post, I thought I&rsquo;d just start with presenting something basic I did recently to start using ranger for saving downloads.</p>
 
-<h2>A More Universal Ranger</h2>
+<h2>Why Ranger?</h2>
 
-<p><a href="https://github.com/hut/ranger">Ranger</a> is the most efficient file manager I have come across. It already integrates easily enough most other programs. The browser is an exception and one due not to any fault of ranger. As far as I&rsquo;m aware, you have pretty much no choice in general when it comes to saving files using most gui browsers. When saving normally in most browsers, you are forced to deal with the dreaded gui save dialog. The best it has to offer you is <em><code>Recent Folders</code></em>, rudimentary tab completion, and the ability to open in the last directory you saved in. Forget support for bookmarks or decent keybindings; it&rsquo;s essentially the shittiest gui &ldquo;file manager&rdquo; in existence, and you don&rsquo;t even have the option to replace it as far as I know. I&rsquo;m not sure exactly what program is responsible for this save popup on GNU/Linux, but it seems to be independent of the browser itself as it is the same for different browsers. I find disturbing the lack of information or interest I could find in this clear conspiracy. Using the default popup can encourage either a pile up of your random, unorganized shit in a single folder or induce insanity due to the frustration involved in getting to the right directory. I&rsquo;ve wasted too much time in the past clicking through ten+ folders just to save one file.</p>
+<p><a href="https://github.com/hut/ranger">Ranger</a> is the most efficient file manager I have come across. It already integrates easily enough with most other programs. The browser is an exception and one due not to any fault of ranger. You have very little choice in general when it comes to saving files using most GUI browsers. The best the default file saver has to offer you is <em><code>Recent Folders</code></em>, rudimentary tab completion, and the ability to open in the last directory you saved in. While it is possible to change the file picker or file saver, none of the few options (e.g. the GTK file picker for GNOME and the QT file picker for KDE) are particularly sophisticated.</p>
 
-<p>Unsurprisingly, the gui save dialog has been unflinching and apathetic in spite of all my protesting. The obvious solution is to just stop using it and have things download automatically to the <code>~/Downloads</code> folder, for example, which is what I did for some time. It&rsquo;s quite easy after something has downloaded to open a terminal, type a two letter alias to <code>ranger ~/Downloads</code> and then cut and move the file. It doesn&rsquo;t take much time, but there are still intermediate steps that can be eliminated. Also, when I did this, I found myself never actually getting to moving the files to their appropriate locations resulting in the aforementioned pile up of unorganized crap.</p>
+<p>Ranger is operated entirely with the keyboard. You can press <code>''</code> to get to the last visited directory or <code>'&lt;key&gt;</code> to visit any directory you&rsquo;ve bookmarked with a letter. This makes navigating even large directory structures fairly quick. When you don&rsquo;t have a bookmark for the exact directory you want to move a file to, you can hit <code>f</code> and then type the name of the directory. As soon as the keys you type correspond to a unique directory, that directory will automatically be opened. Alternatively, there is <a href="https://github.com/hut/ranger/wiki/Commands#visit-frequently-used-directories">fasd integration</a> allowing you to jump immediately to a frequently/recently used directory. You can even <a href="https://github.com/hut/ranger/wiki/Commands#fzf-integration">create a fzf command</a> to jump to a directory with a fuzzy search (e.g. using locate or find). Because of these features, using ranger can reduce a lot of scrolling and clicking to a few keypresses.</p>
 
-<p>My solution uses <a href="http://5digits.org/pentadactyl/">pentadactyl</a> to &ldquo;replace&rdquo; the default save dialog with ranger. Pentadactyl already eliminates the need for the gui save dialog with <code>:w</code> for saving webpages (or whatever else the current url is) and <code>;s</code> for download hinting. Path and file names can be specified with tab completion as well. Pentadactyl isn&rsquo;t the only way to do this (dwb, for example, has download hinting as well I believe), but we can do better still. Because pentadactyl has autocommands, we can do something like this:</p>
+<h2>Implementation</h2>
 
-<pre><code>au DownloadPost * silent !~/bin/ranger/ranger_browser_fm.sh "&lt;file&gt;"
+<p>You can <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/Tutorial/Open_and_Save_Dialogs">write your own save dialog</a>. I don&rsquo;t know if it would be easy or even possible to write a save dialog wrapper for ranger. Because I often want to save without anything popping up (e.g. when saving related files that will be moved to the same directory), I just bypass the save dialog entirely and download everything automatically to a single folder. I used to just open ranger in this folder later and move things, but this led to a pileup of unorganized crap since I rarely got around to cleaning the folder.</p>
+
+<p>Now I use <a href="http://5digits.org/pentadactyl/">pentadactyl</a> to &ldquo;replace&rdquo; the default save dialog with ranger. Pentadactyl already eliminates the need for the GUI save dialog with <code>:w</code> for saving webpages (or whatever else the current url is) and <code>;s</code> for download hinting. Path and file names can be specified with tab completion as well. Other vim-oriented browsers have similar options, but this method still isn&rsquo;t nearly as quick as using ranger. An autocommand can be used to fake ranger integration:</p>
+
+<pre><code>au DownloadPost * silent !/path/to/script "&lt;file&gt;"
 </code></pre>
 
-<p>With this in place, every time something is downloaded in firefox, pentadactyl will pass the path/filename to the specified shell script. We can have this shell script then open ranger with that file already cut and ready to be moved. Making the command silent helps ensure that pentadactyl will not steal the focus back from ranger.</p>
+<p>With this in place, every time something is downloaded, pentadactyl will pass the full path of the downloaded file to the specified script. Making the command silent helps to ensure that pentadactyl will not steal the focus back from ranger.</p>
 
-<p>Here&rsquo;s an example shell script:</p>
+<p>Here&rsquo;s an example script to open ranger with the file cut:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>no_ap=$(echo "$1" | sed "s/'//g")
-</span><span class='line'>mv "$1" "$no_ap"
-</span><span class='line'>escaped=$(printf '%q' "$no_ap")
-</span><span class='line'>bspc rule -a termite -o floating=true center=true
-</span><span class='line'>termite -e "/bin/bash -c 'xdo resize -w +300 && xdo move -x -150 && xdo resize -h +200 && \
-</span><span class='line'>  xdo move -y -100 && ranger --selectfile=""$escaped"" --cmd="cut"'" &</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>termite --geometry="600x400" -e "ranger --selectfile=""$1"" --cmd=cut" &</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The first part just strips the file name of apostrophes which will cause problems if left in. You may have trouble with other symbols. If so, you can either make sure not to include them in the filename when saving or remove them automatically in the script. The fourth line is specific to my window manager (bspwm) and sets things up so that the next time the terminal emulator termite is opened, it will be floating and centered. The last line opens termite, resizes it using xdo (which is not necessary and can be removed as well), and then opens ranger, selecting and cutting the file that was just downloaded.</p>
+<p><em>It will look something like this (updated 2016-01-02)</em>:</p>
 
-<p><em>This will look something like this (I went up to show that the file was successfully cut)</em>:
-<img src="http://noctuid.github.io/images/ranger_file_saver.png"></p>
+<p><img src="http://noctuid.github.io/images/ranger_file_saver.png"></p>
 
-<p>There is another problem with this. The more firefox windows you open, the more ranger instances will be started. For a while, I thought this was because pentadactyl has no <a href="https://groups.google.com/forum/#!topic/pentadactyl/rwrGG4njsq8">autocmd clearing mechanism</a>. Sourcing an autocommands file with <code>au Enter</code> won&rsquo;t fix this though. It happens because the DownloadPost autocmd will execute for every open window. I realized this because the following would still execute from a private window when called from the autocommand but not manually:</p>
+<p>My full script can be found <a href="https://github.com/noctuid/dotfiles/blob/master/scripts/bin/dl_move">here</a> and fixes a lot of problems that can occur. For example, it uses detox to clean up the filename and ignores files saved under <code>/tmp</code> (happens when using &ldquo;open with&rdquo;). It also supports consecutively saving files to a temporary directory and then moving them all at once later. This is useful for preventing a lot of popups when saving related files (e.g. using a count or <code>:tabdo</code>). It has an example for automatically moving certain filetypes; I do this with torrent files. Finally, it gives an example way to use emacsclient and dired instead of ranger (which can open a lot quicker in some situations).</p>
+
+<p>The full script also prevents multiple popups that would normally happen due to a <a href="https://github.com/5digits/dactyl/issues/29">pentadactyl bug</a>. The more firefox windows opened, the more ranger instances are started. For a while, I thought this was because pentadactyl has no <a href="https://groups.google.com/forum/#!topic/pentadactyl/rwrGG4njsq8">autocmd clearing mechanism</a>. Sourcing an autocommands file with <code>au Enter</code> won&rsquo;t fix this though. This bug happens because the DownloadPost autocmd will execute for every open window. I realized this because the following would still execute from a private window when called from the autocommand but not manually:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -213,15 +208,13 @@ you to, for example, change the color of the cursor when you&rsquo;re in the hyd
 </span><span class='line'>EOF</span></code></pre></td></tr></table></div></figure>
 
 
-<p>See the <a href="https://github.com/5digits/dactyl/issues/29">pentadactyl issue</a> for a potential workaround. Also see my <a href="https://github.com/noctuid/dotfiles">dotfiles</a> for the full script (under <code>scripts/bin/ranger</code>) with a simpler workaround. It has extra features like adding an option to open downloads in dired (which can actually be faster than opening a new ranger session with the emacs daemon), ignoring files saved to <code>/tmp</code>, and allowing the ranger-opening behaviour to be toggled on and off. I&rsquo;ll also probably add functionality to sort files or take different actions based on the filetype (to ignore torrent files for example).</p>
-
 <h2>Uploads</h2>
 
-<p>Pentadactyl also provides a way to avoid using a gui for selecting a file for upload. If you can hint an upload button, pentadactyl will give you an <code>Upload:</code> prompt and allow you to select a file with tab completion. Alternatively, it is possible to yank the file path in ranger beforehand and paste this into either the pentadactyl or gui save dialog.</p>
+<p>Pentadactyl also provides a way to avoid using a GUI for selecting a file for upload. If you can hint an upload button, pentadactyl will give you an <code>Upload:</code> prompt and allow you to select a file with tab completion. Alternatively, it is possible to yank the file path in ranger beforehand and paste this into either the pentadactyl or GUI save dialog. As for creating a new file picker that somehow wrapped ranger, I have no clue how difficult this would be.</p>
 
-<p>For some websites, I&rsquo;d rather use a cli program. I&rsquo;ve used <a href="https://github.com/mwunsch/tumblr">tumblr-rb</a> for tumblr uploads. Tumblr also allows you to <a href="https://www.tumblr.com/docs/en/posting">post by email</a> and even use markdown to do so. The <a href="https://code.google.com/p/imgur-cli/">imgur-cli</a> python script is useful for imgur uploads, and I&rsquo;ve added a keybinding for it in ranger. <a href="https://github.com/Profpatsch/imup">Imup</a> is pretty good for anon uploads to different image hosts as well. There is also <a href="https://github.com/mcrapet/plowshare">plowshare</a> for uploading to sites like mediafire.</p>
+<p>For some websites, I&rsquo;d rather use a CLI program. For example, tumblr also allows to <a href="https://www.tumblr.com/docs/en/posting">post by email</a> and even use markdown to do so. There is also <a href="https://github.com/mwunsch/tumblr">tumblr-rb</a>. The <a href="https://code.google.com/p/imgur-cli/">imgur-cli</a> python script is useful for imgur uploads, and I&rsquo;ve added a keybinding for it in ranger. <a href="https://github.com/Profpatsch/imup">Imup</a> is pretty good for anonymous (no account login) uploads to different image hosts as well. There is also <a href="https://github.com/mcrapet/plowshare">plowshare</a> for uploading to sites like mediafire.</p>
 
-<p>I have not tried the following yet, but they may also be of use. For youtube, there are <a href="https://code.google.com/p/youtube-upload/">youtube-upload</a> and <a href="https://code.google.com/p/googlecl/">googlecl</a>. Googlecl is a lot more popular and does a lot more than just youtube (i.e. picasa uploads), and youtube-upload looks like it might require you to enter your password in the command. Googlecl is also in the official arch repos, so I&rsquo;d recommend it over youtube-upload. For facebook, <a href="https://github.com/dtompkins/fbcmd">fbcommand</a> allows uploading photos (and multiple photos at once as an album&hellip; as does googlecl with picasa by the way).</p>
+<p>I have not tried the following programs, but they may also be of use. For youtube, there are <a href="https://code.google.com/p/youtube-upload/">youtube-upload</a> and <a href="https://code.google.com/p/googlecl/">googlecl</a>. Googlecl is a lot more popular and does a lot more than just youtube (e.g. picasa uploads), and youtube-upload looks like it might require you to enter your password in the command. Googlecl is also in the official arch repos. For facebook, <a href="https://github.com/dtompkins/fbcmd">fbcommand</a> allows uploading photos (and multiple photos at once as an album&hellip; as does googlecl with picasa by the way).</p>
 ]]></content>
   </entry>
   
